@@ -17,11 +17,14 @@ $ open https://github.com/ruslo/hunter
 
 ## Tutorial
 
+Set up environment variables
+
 ```sh
 # Set default username and editor
 $ export GITHUB_USERNAME=<имя_пользователя>
 $ alias gsed=sed
 ```
+Organize and get in workspace directory
 
 ```sh
 # Get into the workspace and so on
@@ -29,6 +32,8 @@ $ cd ${GITHUB_USERNAME}/workspace
 $ pushd .
 $ source scripts/activate
 ```
+
+Get new repo on the basis of the previous one
 
 ```sh
 $ git clone https://github.com/${GITHUB_USERNAME}/lab06 projects/lab07 # Copy the previous lab
@@ -43,6 +48,8 @@ $ cd projects/lab07
 $ git remote remove origin # Remove default server
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab07 # Add new remote server
 ```
+
+Install hunter package
 
 ```sh
 $ mkdir -p cmake #Make new folder
@@ -69,6 +76,8 @@ HunterGate(
 ' CMakeLists.txt
 ```
 
+Remove added gtests
+
 ```sh
 $ git rm -rf third-party/gtest # rm subdir
 $ gsed -i '/set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")/a\
@@ -79,6 +88,8 @@ find_package(GTest CONFIG REQUIRED)
 $ gsed -i 's/add_subdirectory(third-party/gtest)//' CMakeLists.txt # rm subdir
 $ gsed -i 's/gtest_main/GTest::gtest_main/' CMakeLists.txt # add namespace
 ```
+
+Try building test target
 
 ```sh
 $ cmake -H. -B_builds -DBUILD_TESTS=ON # init hunter workspace
@@ -114,6 +125,7 @@ drwxr-xr-x  3 johnsnow johnsnow 4096 апр  4 09:58 .
 drwxr-xr-x 41 johnsnow johnsnow 4096 апр 21 15:23 ..
 drwxr-xr-x  6 johnsnow johnsnow 4096 апр  4 09:58 _Base
 ```
+Clone hunter package manager for local usage
 
 ```sh
 $ git clone https://github.com/cpp-pm/hunter $HOME/projects/hunter # Get hunter for tests
@@ -173,6 +185,8 @@ Test project /home/johnsnow/thedraftaccount/workspace/projects/lab07/_builds
 Total Test time (real) =   0.00 sec
 ```
 
+Create configuration file to set up specific GTest version
+
 ```sh
 $ cat $HUNTER_ROOT/cmake/configs/default.cmake | grep GTest # show hunter version
  grep GTest
@@ -203,6 +217,8 @@ hunter_config(GTest VERSION 1.7.0-hunter-9)
 EOF
 # add LOCAL in HunterGate function
 ```
+
+Add demo execurable to the project
 
 ```sh
 $ mkdir demo # create test
@@ -236,6 +252,9 @@ target_link_libraries(demo print)
 install(TARGETS demo RUNTIME DESTINATION bin)
 ' CMakeLists.txt
 ```
+
+Try installation process is complicated already
+Then try to use polly
 
 ```sh
 $ mkdir tools
